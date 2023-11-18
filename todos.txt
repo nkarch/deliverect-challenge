@@ -6,8 +6,7 @@
     - Create 'molecule' components
         - Form input components (text, email, number, select)
         - Buttons
-        - Typography
-    - Wizard Screens
+    - Wizard Step Screens
         - Account fieldset: first name, last name, email
         - Business fieldset: business name, size, type
         - PoS selection
@@ -16,12 +15,14 @@
             - logo buttons
     - Functionality
         - Form validation
+        - Error states
         - API integration
             - GET /pos - display in PoS selection
             - GET /channel - display in channel selection
             - POST /account - save as JSON on submit
         - State preservation in localStorage
     - Styling
+        - Typography
         - Make it fancy
         - Integrate with Storybook
 - Update Readme
