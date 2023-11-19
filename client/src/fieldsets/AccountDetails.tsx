@@ -20,7 +20,6 @@ const AccountDetails = () => {
 
     return (
         <>
-            <h1>Signup Wizard Thing</h1>
             <fieldset className='text-fields-width'>
                 <legend>User Details</legend>
 

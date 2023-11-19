@@ -1,0 +1,79 @@
+.panel-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 30px 0;
+    justify-content: center;
+    align-items: start;
+    perspective: 1000px;
+    overflow: hidden;
+
+    @include mq($bp-1) {
+        align-items: center;
+    }
+}
+
+.panel-border {
+    border-radius: 0.75rem;
+    padding: 1rem;
+    background-color: $c-green-md;
+    transition-property: opacity, transform;
+    max-width: 100%;
+
+    &.panel-next {
+        transform-origin: top;
+        animation-name: panelNext;
+        animation-duration: 0.8s;
+    }
+
+    &.panel-prev {
+        transform-origin: bottom;
+        animation-name: panelPrev;
+        animation-duration: 0.8s;
+    }
+}
+
+@keyframes panelNext {
+    0% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+
+    40% {
+        opacity: 0;
+        transform: translateY(50%) rotate3d(1, 0, 0, -15deg);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translateY(-50%) rotate3d(1, 0, 0, 15deg);
+        translate-origin: bottom;
+    }
+    100% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+}
+
+@keyframes panelPrev {
+    0% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+    40% {
+        opacity: 0;
+        transform: translateY(-50%) rotate3d(1, 0, 0, 15deg);
+        translate-origin: top;
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(50%) rotate3d(1, 0, 0, -15deg);
+    }
+    100% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+}
+
+.panel {
+    border-radius: 0.375rem;
+    padding: 1.5rem;
+    flex: 1;
+    max-width: 623px;
+    background-color: #fff;
+}

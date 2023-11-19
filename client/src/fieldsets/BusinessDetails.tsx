@@ -23,7 +23,7 @@ const BusinessDetails = () => {
 
     return (
         <fieldset className='text-fields-width'>
-            <legend>Business Details</legend>
+            <legend aria-live='assertive'>Business Details</legend>
 
             <FormField
                 type='text'

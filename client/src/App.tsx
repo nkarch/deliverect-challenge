@@ -4,14 +4,13 @@ import { FormEvent } from "react";
 import { FormDataType, formDataDefault } from "./types";
 import { FormContext } from "./formContext";
 
-// import Button from "./components/Button";
-
 import AccountDetails from "./fieldsets/AccountDetails";
 import BusinessDetails from "./fieldsets/BusinessDetails";
 import PointOfSale from "./fieldsets/PointOfSale";
 import DeliveryChannel from "./fieldsets/DeliveryChannel";
 
 import "./App.scss";
+import { useRef } from "react";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -24,7 +23,6 @@ function App() {
     const [currentStep, setCurrentStep] = useState(+localFormStep);
 
     const [panelClass, setPanelClass] = useState("");
-    // const [panelShow, setPanelShow] = useState(false);
 
     function updateFormData(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value } = event.target.dataset?.businessField
@@ -118,7 +116,7 @@ function App() {
         setPanelClass("panel-next");
         setTimeout(() => {
             setCurrentStep((step) => step + 1);
-            console.log(currentStep);
+
             if (currentStep === 4) {
                 localStorage.removeItem("formStep");
             } else {
@@ -138,14 +136,22 @@ function App() {
                     <div className='panel-wrapper'>
                         <div className={`panel-border ${panelClass}`}>
                             <div className='panel'>
-                                <form onSubmit={handleSubmit}>
-                                    {currentStep === 1 && <AccountDetails />}
+                                <form onSubmit={handleSubmit} aria-labelledby='form-title'>
+                                    {currentStep === 1 && (
+                                        <>
+                                            <h1 id='form-title'>Signup Wizard Thing</h1>
+                                            <p>Tell us about you and your business:</p>
+                                            <AccountDetails />
+                                        </>
+                                    )}
+
                                     {currentStep === 2 && <BusinessDetails />}
                                     {currentStep === 3 && <PointOfSale />}
                                     {currentStep === 4 && <DeliveryChannel />}
+
                                     {currentStep === 5 && (
                                         <div className='complete'>
-                                            <p>
+                                            <p aria-live='polite'>
                                                 <span className='success'>Success!</span> You're all
                                                 done!
                                             </p>

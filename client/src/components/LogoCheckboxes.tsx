@@ -45,9 +45,15 @@ const LogoCheckboxes = ({
                                         id={`${idPrefix}-${item.id}`}
                                         onChange={updateCheckboxes}
                                         checked={checked}
+                                        aria-labelledby={`${idPrefix}-${item.id}-img`}
                                     />
                                     <div className='img-wrapper'>
-                                        <img src={item.imageUrl} alt={item.name} />
+                                        <img
+                                            src={item.imageUrl}
+                                            alt={item.name}
+                                            id={`${idPrefix}-${item.id}-img`}
+                                            aria-hidden
+                                        />
                                     </div>
                                 </label>
                             </div>
