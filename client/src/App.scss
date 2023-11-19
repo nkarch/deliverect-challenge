@@ -1,0 +1,131 @@
+@import "./scss/typography.scss";
+@import "./scss/mixins.scss";
+
+$c-green-dk: #02643b;
+$c-green-md: #038851;
+$c-green-lt: #05cb79;
+
+$c-grey-lt: #9b9b9b;
+$c-grey-dk: #1c1c1c;
+$c-grey-md: #4f4f4f;
+
+$c-orange: #ff5f3b;
+
+body {
+    margin: 0;
+    font-family: "Open Sans", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 30px;
+    box-sizing: border-box;
+
+    @include mq(476px, "max-width") {
+        align-items: start;
+    }
+}
+
+.panel-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 30px 0;
+    justify-content: center;
+    align-items: start;
+    perspective: 1000px;
+    overflow: hidden;
+
+    @include mq($bp-1) {
+        align-items: center;
+    }
+}
+
+.panel-border {
+    border-radius: 0.75rem;
+    padding: 1rem;
+    background-color: $c-green-md;
+    transition-property: opacity, transform;
+    max-width: 100%;
+
+    &.panel-next {
+        transform-origin: top;
+        animation-name: panelNext;
+        animation-duration: 0.8s;
+    }
+
+    &.panel-prev {
+        transform-origin: bottom;
+        animation-name: panelPrev;
+        animation-duration: 0.8s;
+    }
+}
+
+@keyframes panelNext {
+    0% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+
+    40% {
+        opacity: 0;
+        transform: translateY(100%) rotate3d(1, 0, 0, -40deg);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translateY(-100%) rotate3d(1, 0, 0, 30deg);
+        translate-origin: bottom;
+    }
+    100% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+}
+
+@keyframes panelPrev {
+    0% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+    40% {
+        opacity: 0;
+        transform: translateY(-100%) rotate3d(1, 0, 0, 30deg);
+        translate-origin: top;
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(100%) rotate3d(1, 0, 0, -40deg);
+    }
+    100% {
+        transform: translateY(0) rotate3d(1, 0, 0, 0);
+    }
+}
+
+.panel {
+    border-radius: 0.375rem;
+    padding: 1.5rem;
+    flex: 1;
+    max-width: 623px;
+    background-color: #fff;
+}
+
+.complete {
+    text-align: center;
+    font-size: 1.25rem;
+    width: 320px;
+    max-width: 100%;
+    .success {
+        display: block;
+        font-size: 2rem;
+        font-weight: 500;
+        color: $c-green-md;
+        margin-bottom: 1rem;
+    }
+}
+
+@import "./scss/logo-grid.scss";
+@import "./scss/forms.scss";
+@import "./scss/buttons.scss";

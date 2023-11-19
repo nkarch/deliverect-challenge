@@ -1,0 +1,45 @@
+.btns-container {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.375rem 0.75rem;
+    border-radius: 12.5rem;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease-in-out,
+        border-color 0.3s ease-in-out,
+        color 0.3s ease-in-out,
+        text-decoration-color 0.3s ease-in-out;
+
+    &-primary {
+        background: $c-green-md;
+        color: #fff;
+        border: none;
+
+        &:hover {
+            background-color: $c-green-dk;
+            border-color: $c-green-dk;
+        }
+    }
+
+    &:focus-visible {
+        outline-color: $c-green-lt;
+        outline-offset: 2px;
+    }
+
+    span {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    &-next {
+        margin-left: auto;
+    }
+
+    &[aria-disabled="true"] {
+        background-color: $c-grey-lt;
+    }
+}

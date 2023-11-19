@@ -25,4 +25,6 @@
         - Typography
         - Make it fancy
         - Integrate with Storybook
+- Testing
+- Optimization
 - Update Readme

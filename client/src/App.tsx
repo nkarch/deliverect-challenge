@@ -4,22 +4,27 @@ import { FormEvent } from "react";
 import { FormDataType, formDataDefault } from "./types";
 import { FormContext } from "./formContext";
 
-import Button from "./components/Button";
+// import Button from "./components/Button";
 
 import AccountDetails from "./fieldsets/AccountDetails";
 import BusinessDetails from "./fieldsets/BusinessDetails";
 import PointOfSale from "./fieldsets/PointOfSale";
 import DeliveryChannel from "./fieldsets/DeliveryChannel";
 
-import "./App.css";
+import "./App.scss";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function App() {
     const localFormDataString = localStorage.getItem("formData");
+    const localFormStep = localStorage.getItem("formStep") || 1;
     const localFormData = localFormDataString ? JSON.parse(localFormDataString) : formDataDefault;
 
     const [formData, setFormData] = useState<FormDataType>(localFormData);
+    const [currentStep, setCurrentStep] = useState(+localFormStep);
+
+    const [panelClass, setPanelClass] = useState("");
+    // const [panelShow, setPanelShow] = useState(false);
 
     function updateFormData(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value } = event.target.dataset?.businessField
@@ -90,32 +95,68 @@ function App() {
                 body: JSON.stringify(formData),
             });
             console.log(res.status);
+
+            localStorage.removeItem("formData");
+            localStorage.removeItem("formStep");
         } catch (err) {}
+    }
+
+    function prevStep() {
+        setPanelClass("panel-prev");
+
+        setTimeout(() => {
+            setCurrentStep((step) => step - 1);
+            localStorage.setItem("formStep", (+localFormStep - 1).toString());
+        }, 400);
+
+        setTimeout(() => {
+            setPanelClass("");
+        }, 800);
+    }
+
+    function nextStep() {
+        setPanelClass("panel-next");
+        setTimeout(() => {
+            setCurrentStep((step) => step + 1);
+            console.log(currentStep);
+            if (currentStep === 4) {
+                localStorage.removeItem("formStep");
+            } else {
+                localStorage.setItem("formStep", (+localFormStep + 1).toString());
+            }
+        }, 400);
+
+        setTimeout(() => {
+            setPanelClass("");
+        }, 800);
     }
 
     return (
         <>
-            <FormContext.Provider value={{ formData, updateFormData }}>
-                <form onSubmit={handleSubmit}>
-                    <AccountDetails />
-                    <BusinessDetails />
-                    <PointOfSale />
-                    <DeliveryChannel />
-                    <Button type='submit'>Submit</Button>
-                </form>
+            <FormContext.Provider value={{ prevStep, nextStep, formData, updateFormData }}>
+                <div className='container'>
+                    <div className='panel-wrapper'>
+                        <div className={`panel-border ${panelClass}`}>
+                            <div className='panel'>
+                                <form onSubmit={handleSubmit}>
+                                    {currentStep === 1 && <AccountDetails />}
+                                    {currentStep === 2 && <BusinessDetails />}
+                                    {currentStep === 3 && <PointOfSale />}
+                                    {currentStep === 4 && <DeliveryChannel />}
+                                    {currentStep === 5 && (
+                                        <div className='complete'>
+                                            <p>
+                                                <span className='success'>Success!</span> You're all
+                                                done!
+                                            </p>
+                                        </div>
+                                    )}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </FormContext.Provider>
-
-            <div
-                style={{
-                    position: "fixed",
-                    top: "20px",
-                    right: "20px",
-                    padding: "10px",
-                    background: "#eee",
-                }}
-            >
-                <pre>{`${JSON.stringify(formData, null, 2)}`}</pre>
-            </div>
         </>
     );
 }

@@ -3,6 +3,7 @@ import { useFormContext } from "../formContext";
 
 type inputProps = React.InputHTMLAttributes<"input"> & {
     label: string;
+    error?: boolean;
     errorMsg?: string;
     businessField?: boolean;
 };
@@ -19,14 +20,19 @@ const FormField = ({
     required,
     errorMsg = DEFAULT_ERROR_MSG,
     label,
+    error,
     businessField,
+    placeholder,
 }: inputProps) => {
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
     const { updateFormData } = useFormContext();
 
     return (
-        <div style={{ display: "block" }}>
-            <label htmlFor={id}>{label} </label>
+        <div className={`form-field form-field-${type}`}>
+            <label htmlFor={id}>
+                {label}
+                {required && <span className='field-required'>*</span>}{" "}
+            </label>
             {type === "select" ? (
                 <select
                     data-business-field={businessField}
@@ -37,8 +43,6 @@ const FormField = ({
                 >
                     {children}
                 </select>
-            ) : type === "textarea" ? (
-                <textarea></textarea>
             ) : (
                 <input
                     name={name}
@@ -49,9 +53,11 @@ const FormField = ({
                     value={value}
                     min={min}
                     required={required}
+                    size={1}
+                    placeholder={placeholder}
                 />
             )}
-            {error && <span>{errorMsg}</span>}
+            {error && <span className='error'>{errorMsg}</span>}
         </div>
     );
 };

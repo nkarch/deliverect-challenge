@@ -27,7 +27,7 @@ const LogoCheckboxes = ({
     }
 
     return (
-        <>
+        <div className='logo-grid logo-checkboxes'>
             {loading ? (
                 "loading"
             ) : data.length ? (
@@ -35,16 +35,22 @@ const LogoCheckboxes = ({
                     const checked = dataGroup.indexOf(item.id) > -1;
 
                     return (
-                        <div key={item.id}>
-                            <input
-                                data-business-field='true'
-                                type='checkbox'
-                                name={`${idPrefix}-${item.id}`}
-                                id={`${idPrefix}-${item.id}`}
-                                onChange={updateCheckboxes}
-                                checked={checked}
-                            />
-                            <label htmlFor={`${idPrefix}- ${item.id}`}>{item.name}</label>
+                        <div key={item.id} className='logo-grid-item'>
+                            <div className='logo-checkbox' key={item.id}>
+                                <label>
+                                    <input
+                                        data-business-field='true'
+                                        type='checkbox'
+                                        name={`${idPrefix}-${item.id}`}
+                                        id={`${idPrefix}-${item.id}`}
+                                        onChange={updateCheckboxes}
+                                        checked={checked}
+                                    />
+                                    <div className='img-wrapper'>
+                                        <img src={item.imageUrl} alt={item.name} />
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                     );
                 })
@@ -53,7 +59,7 @@ const LogoCheckboxes = ({
             ) : (
                 "no items"
             )}
-        </>
+        </div>
     );
 };
 export default LogoCheckboxes;

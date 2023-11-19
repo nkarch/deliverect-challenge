@@ -1,0 +1,36 @@
+$bp-1: 576px;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: $bp-1,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+) !default;
+
+@mixin mq($size, $limiter: "min-width", $max-size: "") {
+    @if map-get($grid-breakpoints, $size) {
+        $size: map-get($grid-breakpoints, $size);
+    }
+
+    @if map-get($grid-breakpoints, $max-size) {
+        $max-size: map-get($grid-breakpoints, $max-size);
+    }
+
+    @if ($limiter == "between") {
+        @media only screen and (min-width: $size) and (max-width: #{$max-size - 1}) {
+            @content;
+        }
+    } @else {
+        @if ($limiter == "max-width") {
+            @media only screen and ($limiter: #{$size - 1}) {
+                @content;
+            }
+        } @else {
+            @media only screen and ($limiter: $size) {
+                @content;
+            }
+        }
+    }
+}

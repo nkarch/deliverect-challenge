@@ -1,0 +1,67 @@
+$logo-width: 6.5rem;
+
+.logo-grid {
+    margin-top: 1rem;
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($logo-width, 1fr));
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+
+    @include mq($bp-1) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.logo-grid-item {
+    display: flex;
+}
+
+.logo-checkbox {
+    border-radius: 0.5rem;
+    box-shadow: 0 0 8px -4px #444;
+    position: relative;
+    display: flex;
+
+    label {
+        cursor: pointer;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    input {
+        position: absolute;
+        left: -9999px;
+        // visibility: hidden;
+
+        & + .img-wrapper {
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            box-shadow: inset 0 0 0 0 $c-green-lt;
+            transition: box-shadow 0.25s;
+        }
+
+        &:checked {
+            & + .img-wrapper {
+                border-radius: 0.5rem;
+                box-shadow: inset 0 0 0 3px $c-green-lt;
+            }
+        }
+
+        &:focus-visible {
+            & + .img-wrapper {
+                border-radius: 0.5rem;
+                box-shadow: inset 0 0 0 6px rgba($c-green-lt, 0.8);
+            }
+        }
+    }
+
+    img {
+        flex-shrink: 1;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        z-index: 1;
+        border-radius: 0.25rem;
+    }
+}
