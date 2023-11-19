@@ -4,13 +4,14 @@
 
 This is a simplified wizard that goes through some basic account registration steps.
 
--   It is built with Vite + React with TypeScript
+-   It is built with Vite + React with TypeScript for the frontend under `/client` and uses Express as the backend, configured in the project root
 -   The form is broken into 4 separate fieldsets with a final success state.
--   Progression to the next fieldset when all fields are valid, displaying field-specific errors when attempting to proceed.
--   A back button allows for the user to correct any errors.
+-   Progression to the next fieldset occurs only when all fields are valid, displaying field-specific errors when attempting to proceed if invalid.
+-   A back button allows for the user to return to the previous fieldset to correct any errors.
 -   All progress is saved in localStorage, with localStorate items for both form data, and current panel.
--   Non-ok service responses return error messages, and if no items are found in each json database, a 'no items found' message will display.
--   On successful commit, payload be saved in disk as and `account_{timestamp}.json` file
+-   localStorage is emptied upon successful form submission
+-   Non-ok server responses return error messages, and if no items are found in each json database, a 'no items found' message will display.
+-   On successful submit, payload is saved to disk as and `account_{timestamp}.json` file
 -   Payload structure:
     -   Currently only supports one business per account
 
@@ -35,7 +36,7 @@ This is a simplified wizard that goes through some basic account registration st
     -   Vite: initialize framework and deps for React+TypeScript configuration
     -   Sass: enable usages of .scss files
     -   Concurrently: run frontend and backend simultaneously with a single npm command
-    -   CORS: fix CORS issue when connecting to port 5000 from 5001
+    -   CORS: fix CORS issue when connecting to port 5000 from 5001. `server.js` has been updated accordingly
 
 ## Setup
 
