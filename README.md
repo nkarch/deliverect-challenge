@@ -10,8 +10,8 @@ This is a simplified wizard that goes through some basic account registration st
 -   A back button allows for the user to return to the previous fieldset to correct any errors.
 -   All progress is saved in localStorage, with localStorate items for both form data, and current panel.
 -   localStorage is emptied upon successful form submission
--   Non-ok server responses return error messages, and if no items are found in each json database, a 'no items found' message will display.
--   On successful submit, payload is saved to disk as and `account_{timestamp}.json` file
+-   Non-ok server responses return error messages, and if no items are found in either json database, a 'no items found' message will display.
+-   On successful submit, payload is saved to disk as `account_{timestamp}.json` file
 -   Payload structure:
     -   Currently only supports one business per account
 
