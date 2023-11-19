@@ -88,7 +88,7 @@ select {
     position: relative;
 
     &::after {
-        transform: translateY(-0.875rem) rotate(225deg);
+        transform: translateY(-0.25rem) rotate(225deg);
         border-top: 3px solid #1c1c1c;
         border-left: 3px solid #1c1c1c;
         border-radius: 0.1rem;

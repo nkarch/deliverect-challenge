@@ -23,14 +23,17 @@ const FormField = ({
     businessField,
     placeholder,
 }: inputProps) => {
-    // const [error, setError] = useState(false);
     const { updateFormData } = useFormContext();
 
     return (
         <div className={`form-field form-field-${type}`}>
             <label htmlFor={id}>
                 {label}
-                {required && <span className='field-required'>*</span>}{" "}
+                {required && (
+                    <span aria-hidden className='field-required'>
+                        *
+                    </span>
+                )}{" "}
             </label>
             {type === "select" ? (
                 <select

@@ -26,46 +26,44 @@ const LogoCheckboxes = ({
         dataGroup = formData.business.channelIds;
     }
 
-    return (
+    return loading ? (
+        <p>Loading items...</p>
+    ) : data.length ? (
         <div className='logo-grid logo-checkboxes'>
-            {loading ? (
-                "loading"
-            ) : data.length ? (
-                data.map((item) => {
-                    const checked = dataGroup.indexOf(item.id) > -1;
+            {data.map((item) => {
+                const checked = dataGroup.indexOf(item.id) > -1;
 
-                    return (
-                        <div key={item.id} className='logo-grid-item'>
-                            <div className='logo-checkbox' key={item.id}>
-                                <label>
-                                    <input
-                                        data-business-field='true'
-                                        type='checkbox'
-                                        name={`${idPrefix}-${item.id}`}
-                                        id={`${idPrefix}-${item.id}`}
-                                        onChange={updateCheckboxes}
-                                        checked={checked}
-                                        aria-labelledby={`${idPrefix}-${item.id}-img`}
+                return (
+                    <div key={item.id} className='logo-grid-item'>
+                        <div className='logo-checkbox' key={item.id}>
+                            <label>
+                                <input
+                                    data-business-field='true'
+                                    type='checkbox'
+                                    name={`${idPrefix}-${item.id}`}
+                                    id={`${idPrefix}-${item.id}`}
+                                    onChange={updateCheckboxes}
+                                    checked={checked}
+                                    aria-labelledby={`${idPrefix}-${item.id}-img`}
+                                />
+                                <div className='img-wrapper'>
+                                    <img
+                                        src={item.imageUrl}
+                                        alt={item.name}
+                                        id={`${idPrefix}-${item.id}-img`}
+                                        aria-hidden
                                     />
-                                    <div className='img-wrapper'>
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={item.name}
-                                            id={`${idPrefix}-${item.id}-img`}
-                                            aria-hidden
-                                        />
-                                    </div>
-                                </label>
-                            </div>
+                                </div>
+                            </label>
                         </div>
-                    );
-                })
-            ) : errorMessage ? (
-                <p>{errorMessage}</p>
-            ) : (
-                "no items"
-            )}
+                    </div>
+                );
+            })}
         </div>
+    ) : errorMessage ? (
+        <p>{errorMessage}</p>
+    ) : (
+        <p>No items found</p>
     );
 };
 export default LogoCheckboxes;

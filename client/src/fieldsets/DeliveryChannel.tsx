@@ -38,14 +38,14 @@ const DeliveryChannel = () => {
 
                 setLoading(false);
 
-                if (res.status !== 200) {
-                    throw "It's not 200";
-                } else {
+                if (res.ok) {
                     const data = await res.json();
                     setPosList(data);
+                } else {
+                    throw "Could not retreive delivery chanels";
                 }
             } catch (err) {
-                setErrorMessage("Error " + err);
+                setErrorMessage("Error: " + err);
             }
         }
 
@@ -53,7 +53,7 @@ const DeliveryChannel = () => {
     }, []);
 
     return (
-        <fieldset>
+        <fieldset style={{ display: "grid" }}>
             <legend>Delivery Channels</legend>
 
             <LogoCheckboxes

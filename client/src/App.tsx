@@ -92,11 +92,16 @@ function App() {
                 },
                 body: JSON.stringify(formData),
             });
-            console.log(res.status);
 
-            localStorage.removeItem("formData");
-            localStorage.removeItem("formStep");
-        } catch (err) {}
+            if (res.ok) {
+                localStorage.removeItem("formData");
+                localStorage.removeItem("formStep");
+            } else {
+                throw "Could not submit";
+            }
+        } catch (err) {
+            console.log("Error: " + err);
+        }
     }
 
     function prevStep() {
