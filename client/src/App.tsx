@@ -4,13 +4,14 @@ import { FormEvent } from "react";
 import { FormDataType, formDataDefault } from "./types";
 import { FormContext } from "./formContext";
 
+import Layout from "./Layout";
+
 import AccountDetails from "./fieldsets/AccountDetails";
 import BusinessDetails from "./fieldsets/BusinessDetails";
 import PointOfSale from "./fieldsets/PointOfSale";
 import DeliveryChannel from "./fieldsets/DeliveryChannel";
 
 import "./App.scss";
-import { useRef } from "react";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -137,36 +138,29 @@ function App() {
     return (
         <>
             <FormContext.Provider value={{ prevStep, nextStep, formData, updateFormData }}>
-                <div className='container'>
-                    <div className='panel-wrapper'>
-                        <div className={`panel-border ${panelClass}`}>
-                            <div className='panel'>
-                                <form onSubmit={handleSubmit} aria-labelledby='form-title'>
-                                    {currentStep === 1 && (
-                                        <>
-                                            <h1 id='form-title'>Signup Wizard Thing</h1>
-                                            <p>Tell us about you and your business:</p>
-                                            <AccountDetails />
-                                        </>
-                                    )}
+                <Layout panelClass={panelClass}>
+                    <form onSubmit={handleSubmit} aria-labelledby='form-title'>
+                        {currentStep === 1 && (
+                            <>
+                                <h1 id='form-title'>Signup Wizard Thing</h1>
+                                <p>Tell us about you and your business:</p>
+                                <AccountDetails />
+                            </>
+                        )}
 
-                                    {currentStep === 2 && <BusinessDetails />}
-                                    {currentStep === 3 && <PointOfSale />}
-                                    {currentStep === 4 && <DeliveryChannel />}
+                        {currentStep === 2 && <BusinessDetails />}
+                        {currentStep === 3 && <PointOfSale />}
+                        {currentStep === 4 && <DeliveryChannel />}
 
-                                    {currentStep === 5 && (
-                                        <div className='complete'>
-                                            <p aria-live='polite'>
-                                                <span className='success'>Success!</span> You're all
-                                                done!
-                                            </p>
-                                        </div>
-                                    )}
-                                </form>
+                        {currentStep === 5 && (
+                            <div className='complete'>
+                                <p aria-live='polite'>
+                                    <span className='success'>Success!</span> You're all done!
+                                </p>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        )}
+                    </form>
+                </Layout>
             </FormContext.Provider>
         </>
     );
