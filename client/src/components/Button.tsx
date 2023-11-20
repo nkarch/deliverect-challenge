@@ -2,6 +2,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: string;
     children: string;
     className: string;
+    tabindex?: string;
 };
 
 const Button = ({
@@ -11,6 +12,7 @@ const Button = ({
     onClick,
     children,
     disabled,
+    tabIndex,
 }: ButtonProps) => {
     return (
         <button
@@ -18,6 +20,7 @@ const Button = ({
             className={`btn btn-${variant} ${className}`}
             onClick={onClick}
             type={type}
+            tabIndex={tabIndex}
         >
             <span>{children}</span>
         </button>

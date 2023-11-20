@@ -69,7 +69,7 @@ const DeliveryChannel = () => {
             )}
 
             <div className='btns-container'>
-                <Button className='btn-prev' onClick={prevStep}>
+                <Button className='btn-prev' onClick={prevStep} tabIndex={1}>
                     Go Back
                 </Button>
 
