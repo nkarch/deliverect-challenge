@@ -10,7 +10,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const DeliveryChannel = () => {
     const { formData, updateFormData, prevStep, nextStep } = useFormContext();
 
-    const [posList, setPosList] = useState<LogoButtonType[]>([]);
+    const [channelList, setChannelList] = useState<LogoButtonType[]>([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
     const [nextBtnClicked, setNexBtnClicked] = useState(false);
@@ -32,7 +32,7 @@ const DeliveryChannel = () => {
     };
 
     useEffect(() => {
-        async function getPosList() {
+        async function getChannelList() {
             try {
                 const res = await fetch(apiUrl + "/channel");
 
@@ -40,7 +40,9 @@ const DeliveryChannel = () => {
 
                 if (res.ok) {
                     const data = await res.json();
-                    setPosList(data);
+                    setChannelList(data);
+
+                    return data;
                 } else {
                     throw "Could not retreive delivery chanels";
                 }
@@ -49,7 +51,7 @@ const DeliveryChannel = () => {
             }
         }
 
-        getPosList();
+        getChannelList();
     }, []);
 
     return (
@@ -57,7 +59,7 @@ const DeliveryChannel = () => {
             <legend>Delivery Channels</legend>
 
             <LogoCheckboxes
-                data={posList}
+                data={channelList}
                 loading={loading}
                 errorMessage={errorMessage}
                 idPrefix='channel'
