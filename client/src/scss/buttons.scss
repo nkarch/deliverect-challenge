@@ -34,6 +34,10 @@
     span {
         font-size: 1rem;
         line-height: 1.5;
+
+        @include mq($bp-1, "max-width") {
+            font-size: 0.875rem;
+        }
     }
 
     &-next {

@@ -11,24 +11,32 @@ $c-grey-md: #4f4f4f;
 
 $c-orange: #ff5f3b;
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: "Open Sans", Arial, sans-serif;
 }
 
-* {
-    box-sizing: border-box;
+h1 {
+    margin-top: 0;
+    @include mq($bp-1, "max-width") {
+        font-size: 1.5rem;
+    }
 }
 
 .container {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    padding: 0 30px;
+    padding: 0 2rem;
     box-sizing: border-box;
 
     @include mq(476px, "max-width") {
         align-items: start;
+        padding: 0 1rem;
     }
 }
 
@@ -45,10 +53,6 @@ body {
         color: $c-green-md;
         margin-bottom: 1rem;
     }
-}
-
-h1 {
-    margin-top: 0;
 }
 
 @import "./scss/panel.scss";
