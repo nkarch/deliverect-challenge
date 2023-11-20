@@ -67,6 +67,12 @@ select {
     font-family: inherit;
     margin-bottom: 1rem;
     transition: border-color 0.2s ease-in-out;
+
+    &:focus {
+        outline: none;
+        border-color: $c-green-lt;
+        box-shadow: inset 0 0 0 0.0625rem $c-green-lt;
+    }
 }
 
 input {
@@ -77,12 +83,6 @@ input {
 
         @include mq($bp-1, "max-width") {
             padding: 0.5rem 0.75rem;
-        }
-
-        &:focus {
-            outline: none;
-            border-color: $c-green-lt;
-            box-shadow: inset 0 0 0 0.0625rem $c-green-lt;
         }
     }
 }
