@@ -1,10 +1,12 @@
-import { useFormContext } from "../formContext";
+import { ChangeEventHandler } from "react";
 
-type inputProps = React.InputHTMLAttributes<"input"> & {
+type inputProps = React.InputHTMLAttributes<HTMLInputElement> & {
     label: string;
     error?: boolean;
     errorMsg?: string;
     businessField?: boolean;
+    onChange?: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
+    name: string;
 };
 
 const DEFAULT_ERROR_MSG = "Please complete this required field.";
@@ -14,7 +16,7 @@ const FormField = ({
     type,
     id,
     name,
-    value,
+    defaultValue,
     min,
     required,
     errorMsg = DEFAULT_ERROR_MSG,
@@ -23,8 +25,6 @@ const FormField = ({
     businessField,
     placeholder,
 }: inputProps) => {
-    const { updateFormData } = useFormContext();
-
     return (
         <div className={`form-field form-field-${type}`}>
             <label htmlFor={id}>
@@ -40,8 +40,7 @@ const FormField = ({
                     data-business-field={businessField}
                     id={id}
                     name={name}
-                    onChange={(e) => updateFormData(e)}
-                    defaultValue={value || "select"}
+                    defaultValue={defaultValue || "select"}
                 >
                     {children}
                 </select>
@@ -51,8 +50,7 @@ const FormField = ({
                     data-business-field={businessField}
                     type={type}
                     id={id}
-                    onChange={(e) => updateFormData(e)}
-                    value={value}
+                    defaultValue={defaultValue}
                     min={min}
                     required={required}
                     size={1}

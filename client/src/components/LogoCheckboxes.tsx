@@ -1,69 +1,36 @@
-import { LogoButtonType } from "../types";
-import { useFormContext } from "../formContext";
+import { IntegrationIdType, LogoButtonType } from "../types";
+import { useFormContext } from "../hooks/useFormContext";
+import LogoCheckbox from "./LogoCheckbox";
 
 type LogoCheckboxesProps = {
-    data: LogoButtonType[];
-    loading: boolean;
-    errorMessage: string;
-    idPrefix: string;
-    updateCheckboxes: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    logoCheckboxes: LogoButtonType[];
+    integrationId: IntegrationIdType;
 };
 
 const LogoCheckboxes = ({
-    data,
-    loading,
-    errorMessage,
-    idPrefix,
-    updateCheckboxes,
+    logoCheckboxes,
+    integrationId,
 }: LogoCheckboxesProps) => {
     const { formData } = useFormContext();
 
-    let dataGroup: number[];
+    const ids: number[] = formData.business[`${integrationId}Ids`] ?? [];
 
-    if (idPrefix === "pos") {
-        dataGroup = formData.business.posIds;
-    } else if (idPrefix === "channel") {
-        dataGroup = formData.business.channelIds;
-    }
-
-    return loading ? (
-        <p>Loading items...</p>
-    ) : data.length ? (
+    return (
         <div className='logo-grid logo-checkboxes'>
-            {data.map((item) => {
-                const checked = dataGroup.indexOf(item.id) > -1;
+            {logoCheckboxes.map((item) => {
+                const defaultChecked = ids.indexOf(item.id) > -1;
 
                 return (
                     <div key={item.id} className='logo-grid-item'>
-                        <div className='logo-checkbox' key={item.id}>
-                            <label>
-                                <input
-                                    data-business-field='true'
-                                    type='checkbox'
-                                    name={`${idPrefix}-${item.id}`}
-                                    id={`${idPrefix}-${item.id}`}
-                                    onChange={updateCheckboxes}
-                                    checked={checked}
-                                    aria-labelledby={`${idPrefix}-${item.id}-img`}
-                                />
-                                <div className='img-wrapper'>
-                                    <img
-                                        src={item.imageUrl}
-                                        alt={item.name}
-                                        id={`${idPrefix}-${item.id}-img`}
-                                        aria-hidden
-                                    />
-                                </div>
-                            </label>
-                        </div>
+                        <LogoCheckbox
+                            item={item}
+                            defaultChecked={defaultChecked}
+                            integrationId={integrationId}
+                        />
                     </div>
                 );
             })}
         </div>
-    ) : errorMessage ? (
-        <p>{errorMessage}</p>
-    ) : (
-        <p>No items found</p>
     );
 };
 export default LogoCheckboxes;

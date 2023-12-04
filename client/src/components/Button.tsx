@@ -1,7 +1,7 @@
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: string;
     children: string;
-    className: string;
+    className?: string;
     tabindex?: string;
 };
 

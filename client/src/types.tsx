@@ -19,6 +19,14 @@ export type BusinessType = {
     channelIds: number[];
 };
 
+export type IntegrationIdType = "pos" | "channel";
+
+export type IntegrationType = {
+    id: number;
+    name: string;
+    imageUrl: string;
+};
+
 export type FormDataType = UserType;
 
 export const formDataDefault: FormDataType = {
@@ -33,3 +41,5 @@ export const formDataDefault: FormDataType = {
         channelIds: [],
     },
 };
+
+export type DirectionType = "prev" | "next";

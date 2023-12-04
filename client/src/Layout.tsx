@@ -1,10 +1,13 @@
+import { useFormContext } from "./hooks/useFormContext";
+
 type LayoutProps = {
     children: React.ReactNode;
     className?: string;
-    panelClass?: string;
 };
 
-const Layout = ({ children, panelClass }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
+    const { panelClass } = useFormContext();
+
     return (
         <div className='container'>
             <div className='panel-wrapper'>
